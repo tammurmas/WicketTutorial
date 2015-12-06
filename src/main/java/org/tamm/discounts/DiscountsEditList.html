@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Discounts Edit List</title>
+</head>
+<body>
+	<wicket:panel>
+		<table>
+			<thead>
+				<tr>
+					<th>name</th>
+					<th>%</th>
+					<th>description</th>
+					<th>from</th>
+					<th>until</th>
+					<th>remove</th>
+				</tr>
+			</thead>
+			<form wicket:id="form">
+				<tbody>
+					<tr wicket:id="discounts">
+						<td><span wicket:id="name">name</span></td>
+						<td><input type="text" wicket:id="discount" size="6" /></td>
+						<td><input type="text" wicket:id="description" /></td>
+						<td><span wicket:id="from" /></td>
+						<td><span wicket:id="until" /></td>
+						<td>
+							<wicket:link>
+								<a href="#" wicket:id="remove"><img src="remove_icon.gif" /></a>
+							</wicket:link>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4"><input type="submit" wicket:id="newButton"
+							value="new" /> <input type="submit" wicket:id="saveButton"
+							value="save" /></td>
+					</tr>
+					<tr>
+						<td colspan="4"><span wicket:id="feedback">[any
+								feedback here]</span></td>
+					</tr>
+				</tbody>
+			</form>
+		</table>
+	</wicket:panel>
+</body>
+</html>

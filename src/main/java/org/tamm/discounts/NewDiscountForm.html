@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<wicket:panel>
+		<table>
+			<form wicket:id="form">
+				<tbody>
+					<tr>
+						<td>name</td>
+						<td><select wicket:id="name"></select></td>
+					</tr>
+					<tr>
+						<td>discount</td>
+						<td><input type="text" wicket:id="discount" size="6" />&nbsp;%</td>
+					</tr>
+					<tr>
+						<td>description</td>
+						<td><input type="text" wicket:id="description" /></td>
+					</tr>
+					<tr>
+						<td colspan="4"><input type="submit" wicket:id="cancelButton"
+							value="cancel" /> <input type="submit" wicket:id="saveButton"
+							value="save" /></td>
+					</tr>
+					<tr>
+						<td colspan="4"><span wicket:id="feedback">[any
+								feedback here]</span></td>
+					</tr>
+				</tbody>
+			</form>
+		</table>
+	</wicket:panel>
+</body>
+</html>
