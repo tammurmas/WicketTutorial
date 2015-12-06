@@ -3,11 +3,14 @@ package org.tamm.form;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.datetime.PatternDateConverter;
 import org.apache.wicket.datetime.markup.html.form.DateTextField;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -16,19 +19,40 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.validation.validator.StringValidator;
 
 public class FormPage extends WebPage {
 
 	private static final long serialVersionUID = 1L;
+	private static final ResourceReference MASKED_INPUT_JS = new JavaScriptResourceReference(FormPage.class, "maskedinput.js");
+	private static final ResourceReference MASK_JS = new JavaScriptResourceReference(FormPage.class, "mask.js");
+	
 	private TextField<?> textField;
 	private DropDownChoice<String> choice;
 	private DateTextField startDate;
 	private DateTextField endDate;
+	private Button submit;
+	private Form<?> form;
+	
+	@Override
+	public void renderHead(IHeaderResponse response) {
+		response.render(JavaScriptReferenceHeaderItem.forReference(MASKED_INPUT_JS));
+		response.render(JavaScriptReferenceHeaderItem.forReference(MASK_JS));
+	}
 	
 	public FormPage()
-	{
-		Form<?> form = new Form<Void>("form") {
+	{		
+		createForm();
+		addSubmitButton();
+		addTextFieldAndChoice();
+		addDateFields();
+		add(form);
+	}
+	
+	private void createForm() {
+		form = new Form<Void>("form") {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -49,18 +73,30 @@ public class FormPage extends WebPage {
 			}
 		};
 		
-		Button submit = new Button("submit", new Model<String>("Submit")) {
-			private static final long serialVersionUID = 1L;
+	}
 
-			@Override
-			public void onSubmit() {
-				System.out.println("Submit button pressed!");
-			}
-		};
+	private void addSubmitButton()
+	{
+		submit = new Button("submit", new Model<String>("Submit"));
 		submit.setEnabled(false).setOutputMarkupId(true);
-		
 		form.add(submit);
-		
+	}
+	
+	private void addDateFields() {
+		startDate = new DateTextField("startDate", getDateModel(),
+				new PatternDateConverter("dd.MM.yyyy", true));
+		startDate.add(new RangeDatePicker());
+		startDate.add(new AttributeAppender("class", Model.of("date")));
+		form.add(startDate);
+
+		endDate = new DateTextField("endDate", getDateModel(),
+				new PatternDateConverter("dd.MM.yyyy", true));
+		endDate.add(new RangeDatePicker());
+		endDate.add(new AttributeAppender("class", Model.of("date")));
+		form.add(endDate);
+	}
+
+	private void addTextFieldAndChoice() {
 		List<String> choices = new ArrayList<String>();
 		choices.add("Eesti");
 		choices.add("Leedu");
@@ -87,14 +123,7 @@ public class FormPage extends WebPage {
 				String id = getComponent().getMarkupId();
 				target.appendJavaScript("document.getElementById('"+id+"').style.color = 'black';");
 				
-				if(!value.isEmpty())
-				{
-					submit.setEnabled(true);
-				}
-				else
-				{
-					submit.setEnabled(false);
-				}
+				submit.setEnabled(!value.isEmpty());
 				target.add(submit);
 			}
 			
@@ -123,20 +152,8 @@ public class FormPage extends WebPage {
 		});
 		
 		form.add(textField);
-		
-		startDate = new DateTextField("startDate", getDateModel(), new PatternDateConverter ("dd.MM.yyyy", true));
-		startDate.add(new RangeDatePicker());
-		startDate.add(new AttributeAppender("class", Model.of("date")));
-		form.add(startDate);
-		
-		endDate = new DateTextField("endDate", getDateModel(), new PatternDateConverter ("dd.MM.yyyy", true));
-		endDate.add(new RangeDatePicker());
-		endDate.add(new AttributeAppender("class", Model.of("date")));
-		form.add(endDate);
-		
-		add(form);
 	}
-	
+
 	private IModel<Date> getDateModel()
 	{
 		return new Model<Date>() {
