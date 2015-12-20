@@ -14,7 +14,7 @@ import org.apache.wicket.validation.validator.DateValidator;
 
 public class FormPage extends WebPage {
 	private static final long serialVersionUID = 1L;
-	private static final String DATE_PATTERN = "dd.MM.yy";
+	private static final String DISPLAY_DATE_PATTERN = "dd.MM.yy";
 	private static final String START_DATE = "startDate";
 	private static final String END_DATE = "endDate";
 	private Form<Void> form;
@@ -41,7 +41,7 @@ public class FormPage extends WebPage {
 	private void addDateFields() {
 		RangeDatePicker startDatePicker = new RangeDatePicker();
 		DateTextField startDate = new DateTextField(START_DATE, new PropertyModel<Date>(formModel, START_DATE),
-				new PatternDateConverter(DATE_PATTERN, true));
+				new PatternDateConverter(DISPLAY_DATE_PATTERN, true));
 		startDate.add(startDatePicker);
 		startDate.add(new AttributeAppender("class", Model.of("date")));
 		form.add(startDate);
@@ -49,7 +49,7 @@ public class FormPage extends WebPage {
 
 		RangeDatePicker endDatePicker = new RangeDatePicker();
 		DateTextField endDate = new DateTextField("endDate", new PropertyModel<Date>(formModel, END_DATE),
-				new PatternDateConverter(DATE_PATTERN, true));
+				new PatternDateConverter(DISPLAY_DATE_PATTERN, true));
 		endDate.add(new RangeDatePicker());
 		endDate.add(new AttributeAppender("class", Model.of("date")));
 		endDate.add(new DateValidator(endDatePicker.getMinDateModel().getObject(), endDatePicker.getMaxDateModel().getObject()));

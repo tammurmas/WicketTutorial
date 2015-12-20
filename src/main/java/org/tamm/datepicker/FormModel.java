@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FormModel implements Serializable{
-	private static final String FORMAT_DATE = "dd.MM.yyyy";
+	private static final String DATE_FORMAT = "dd.MM.yyyy";
 	private static final long serialVersionUID = 1L;
 	private Date startDate;
 	private Date endDate;
@@ -23,6 +23,6 @@ public class FormModel implements Serializable{
 	}
 	public String formatDate(Date date)
 	{
-		return new SimpleDateFormat(FORMAT_DATE).format(date);
+		return new SimpleDateFormat(DATE_FORMAT).format(date);
 	}
 }

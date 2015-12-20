@@ -19,7 +19,8 @@ import org.joda.time.DateTime;
  */
 class RangeDatePicker extends DatePicker {
 	private static final long serialVersionUID = 1L;
-	private static final String FORMAT_DATE = "MM/dd/yyyy";
+	private static final String DATE_FORMAT = "dd/mm/yyyy";
+	private static final String DEFAULT_DATE_FORMAT = "MM/dd/yyyy";
 	private final IModel<Date> maxDateModel;
 	private final IModel<Date> minDateModel;
 
@@ -49,9 +50,9 @@ class RangeDatePicker extends DatePicker {
 			Map<String, Object> init) {
 		super.configure(map, resp, init);
 		
-		map.put("dateFormat", "dd/mm/yyyy");
-		map.put("maxDate", new SimpleDateFormat(FORMAT_DATE).format(maxDateModel.getObject()));
-		map.put("minDate", new SimpleDateFormat(FORMAT_DATE).format(minDateModel.getObject()));
+		map.put("dateFormat", DATE_FORMAT);
+		map.put("maxDate", new SimpleDateFormat(DEFAULT_DATE_FORMAT).format(maxDateModel.getObject()));
+		map.put("minDate", new SimpleDateFormat(DEFAULT_DATE_FORMAT).format(minDateModel.getObject()));
 	}
 
 	@Override
