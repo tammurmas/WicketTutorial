@@ -27,7 +27,6 @@ public class ThrottlePage extends WebPage {
 			}
 		};
 		
-
 		textField.add(new AjaxFormComponentUpdatingBehavior("keyup") {
 			private static final long serialVersionUID = 1L;
 			

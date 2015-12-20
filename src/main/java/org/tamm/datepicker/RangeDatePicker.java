@@ -1,4 +1,4 @@
-package org.tamm.form;
+package org.tamm.datepicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,7 +29,6 @@ class RangeDatePicker extends DatePicker {
 
 			@Override
 			public Date getObject() {
-				// return new DateTime().toDate();
 				return new Date(System.currentTimeMillis());
 			}
 		};
@@ -44,12 +43,12 @@ class RangeDatePicker extends DatePicker {
 			}
 		};
 	}
-
+	
 	@Override
 	protected void configure(Map<String, Object> map, IHeaderResponse resp,
 			Map<String, Object> init) {
 		super.configure(map, resp, init);
-
+		
 		map.put("dateFormat", "dd/mm/yyyy");
 		map.put("maxDate", new SimpleDateFormat(FORMAT_DATE).format(maxDateModel.getObject()));
 		map.put("minDate", new SimpleDateFormat(FORMAT_DATE).format(minDateModel.getObject()));

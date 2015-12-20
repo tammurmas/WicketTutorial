@@ -1,5 +1,6 @@
 package org.tamm.form;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,8 +17,8 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
@@ -62,7 +63,10 @@ public class FormPage extends WebPage {
 			    params.add("value", textField.getModel().getObject().toString());
 			    if(choice.getModel().getObject() != null)
 			    {
+			    	String FORMAT_DATE = "dd.MM.yyyy";
 			    	params.add("choice", choice.getModel().getObject().toString());
+			    	params.add("start", new SimpleDateFormat(FORMAT_DATE).format(startDate.getModel().getObject()));
+			    	params.add("end", new SimpleDateFormat(FORMAT_DATE).format(endDate.getModel().getObject()));
 			    }
 			    else
 			    {
@@ -77,20 +81,37 @@ public class FormPage extends WebPage {
 
 	private void addSubmitButton()
 	{
-		submit = new Button("submit", new Model<String>("Submit"));
-		submit.setEnabled(false).setOutputMarkupId(true);
+		submit = new Button("submit", new Model<String>("Submit"))
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+		    public boolean isEnabled() {
+				if(textField.getDefaultModelObjectAsString().isEmpty())
+				{
+					return false;
+				}
+				else
+				{
+					return !textField.hasErrorMessage();
+				}
+		    }
+		};
+		submit.setOutputMarkupId(true);
 		form.add(submit);
 	}
 	
 	private void addDateFields() {
-		startDate = new DateTextField("startDate", getDateModel(),
-				new PatternDateConverter("dd.MM.yyyy", true));
-		startDate.add(new RangeDatePicker());
+		RangeDatePicker startDatePicker = new RangeDatePicker();
+		
+		startDate = new DateTextField("startDate", new PropertyModel<Date>(this, "startDateValue"),
+				new PatternDateConverter("dd.MM.yy", true));
+		startDate.add(startDatePicker);
 		startDate.add(new AttributeAppender("class", Model.of("date")));
 		form.add(startDate);
 
-		endDate = new DateTextField("endDate", getDateModel(),
-				new PatternDateConverter("dd.MM.yyyy", true));
+		endDate = new DateTextField("endDate", new PropertyModel<Date>(this, "endDateValue"),
+				new PatternDateConverter("dd.MM.yy", true));
 		endDate.add(new RangeDatePicker());
 		endDate.add(new AttributeAppender("class", Model.of("date")));
 		form.add(endDate);
@@ -116,6 +137,7 @@ public class FormPage extends WebPage {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				String value = getComponent().getDefaultModelObjectAsString();
+				System.out.println("Value length "+value+" errors "+textField.hasErrorMessage());
 				
 				choice.setChoices(updateChoices(choices, value));
 				target.add(choice);
@@ -123,8 +145,8 @@ public class FormPage extends WebPage {
 				String id = getComponent().getMarkupId();
 				target.appendJavaScript("document.getElementById('"+id+"').style.color = 'black';");
 				
-				submit.setEnabled(!value.isEmpty());
 				target.add(submit);
+				
 			}
 			
 			private List<String> updateChoices(List<String> choices, String value) {
@@ -145,8 +167,10 @@ public class FormPage extends WebPage {
 			protected void onError(AjaxRequestTarget target, RuntimeException e) {
 				String id = getComponent().getMarkupId();
 				target.appendJavaScript("document.getElementById('"+id+"').style.color = 'red';");
+				//textField.error("Error");
+				String value = getComponent().getDefaultModelObjectAsString();
+				System.out.println("Value length "+value+" errors "+textField.hasErrorMessage());
 				
-				submit.setEnabled(false);
 				target.add(submit);
 			}
 		});
@@ -154,7 +178,7 @@ public class FormPage extends WebPage {
 		form.add(textField);
 	}
 
-	private IModel<Date> getDateModel()
+	/*private IModel<Date> getDateModel()
 	{
 		return new Model<Date>() {
 			private static final long serialVersionUID = 1L;
@@ -164,6 +188,6 @@ public class FormPage extends WebPage {
 				return new Date(System.currentTimeMillis());
 			}
 		};
-	};
+	};*/
 	
 }

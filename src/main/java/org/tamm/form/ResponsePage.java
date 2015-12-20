@@ -14,6 +14,8 @@ public class ResponsePage extends WebPage{
 		{
 			add(new Label("result", params.getParameterValue("value").toString()));
 			add(new Label("choice", params.getParameterValue("choice").toString()));
+			add(new Label("start", params.getParameterValue("start")));
+			add(new Label("end", params.getParameterValue("end")));
 		}
 		else
 		{
