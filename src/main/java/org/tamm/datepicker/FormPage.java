@@ -54,5 +54,7 @@ public class FormPage extends WebPage {
 		endDate.add(new AttributeAppender("class", Model.of("date")));
 		endDate.add(new DateValidator(endDatePicker.getMinDateModel().getObject(), endDatePicker.getMaxDateModel().getObject()));
 		form.add(endDate);
+		
+		form.add(new DateRangeValidator(startDate, endDate));
 	}
 }
