@@ -10,9 +10,8 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.time.Duration;
 /**
- * Throttle file edited locally
- * 
- * */
+ * Local changes removed
+ */
 public class ThrottlePage extends WebPage {
 	private static final long serialVersionUID = 1L;
 	
