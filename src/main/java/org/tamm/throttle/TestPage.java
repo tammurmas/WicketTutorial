@@ -7,6 +7,10 @@ public class TestPage {
 		{
 			System.out.println("Null");
 		}
+		else if(i == 1)
+		{
+			System.out.println("One");
+		}
 		else
 		{
 			System.out.println("Non-Null");
