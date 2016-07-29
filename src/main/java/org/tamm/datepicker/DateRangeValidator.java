@@ -29,6 +29,6 @@ public class DateRangeValidator extends AbstractFormValidator {
 
 	@Override
 	public void validate(Form<?> form) {
-		startDate.error(new ValidationError().addKey("DateRangeValidator"));
+		
 	}
 }

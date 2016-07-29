@@ -39,8 +39,7 @@ class RangeDatePicker extends DatePicker {
 
 			@Override
 			public Date getObject() {
-				return new DateTime(2015, 12, 4, 0, 0).toDate();// aasta, kuu,
-																// päev
+				return new DateTime(2015, 11, 4, 0, 0).toDate();// aasta, kuu, päev
 			}
 		};
 	}
@@ -53,6 +52,7 @@ class RangeDatePicker extends DatePicker {
 		map.put("dateFormat", DATE_FORMAT);
 		map.put("maxDate", new SimpleDateFormat(DEFAULT_DATE_FORMAT).format(maxDateModel.getObject()));
 		map.put("minDate", new SimpleDateFormat(DEFAULT_DATE_FORMAT).format(minDateModel.getObject()));
+		map.put("changeMonth", true);
 	}
 
 	@Override

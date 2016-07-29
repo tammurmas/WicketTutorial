@@ -4,13 +4,16 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.wicket.datetime.markup.html.form.DateTextField;
-import org.apache.wicket.extensions.yui.calendar.DatePicker;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.validation.validator.RangeValidator;
+
+import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.jquery.ui.form.datepicker.DatePicker;
+
 
 public class DateTimeField extends FormComponentPanel<Date> {
 	private static final long serialVersionUID = 6808200342399266557L;
@@ -31,7 +34,10 @@ public class DateTimeField extends FormComponentPanel<Date> {
 		PropertyModel<Date> dateFieldModel = new PropertyModel<Date>(this,
 				"date");
 		add(dateField = newDateTextField("date", dateFieldModel));
-		dateField.add(new DatePicker());
+		Options options = new Options();
+		options.set("changeMonth", true).set("changeYear", true);
+		DatePicker datePicker = new DatePicker("datePicker", dateFieldModel, options);
+		add(datePicker);
 		hoursField = new TextField<Integer>("hours",
 				new PropertyModel<Integer>(this, "hours"), Integer.class);
 		add(hoursField);

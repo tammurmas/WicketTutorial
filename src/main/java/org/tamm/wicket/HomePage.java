@@ -14,6 +14,9 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.model.Model;
 import org.tamm.datefield.DateTimeFieldPage;
 import org.tamm.discounts.Index;
+import org.tamm.jquery.DefaultWindowPage;
+import org.tamm.navigator.Sub1Page;
+import org.tamm.panels.PanelsPage;
 
 
 public class HomePage extends WebPage {
@@ -77,6 +80,14 @@ public class HomePage extends WebPage {
 	    });
 	    
 	    add(new BookmarkablePageLink<Void>("discounts_page", Index.class){
+			private static final long serialVersionUID = 1L;
+	    });
+	    
+	    add(new BookmarkablePageLink<Void>("navigator", Sub1Page.class){
+			private static final long serialVersionUID = 1L;
+	    });
+	    
+	    add(new BookmarkablePageLink<Void>("panels", PanelsPage.class){
 			private static final long serialVersionUID = 1L;
 	    });
     }

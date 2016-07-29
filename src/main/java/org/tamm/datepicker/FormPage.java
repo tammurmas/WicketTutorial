@@ -42,10 +42,11 @@ public class FormPage extends WebPage {
 		RangeDatePicker startDatePicker = new RangeDatePicker();
 		DateTextField startDate = new DateTextField(START_DATE, new PropertyModel<Date>(formModel, START_DATE),
 				new PatternDateConverter(DISPLAY_DATE_PATTERN, true));
-		startDate.add(startDatePicker);
+		/*startDate.add(startDatePicker);
 		startDate.add(new AttributeAppender("class", Model.of("date")));
 		form.add(startDate);
-		startDate.add(new DateValidator(startDatePicker.getMinDateModel().getObject(), startDatePicker.getMaxDateModel().getObject()));
+		startDate.add(new DateValidator(startDatePicker.getMinDateModel().getObject(), startDatePicker.getMaxDateModel().getObject()));*/
+		form.add(startDate);
 
 		RangeDatePicker endDatePicker = new RangeDatePicker();
 		DateTextField endDate = new DateTextField("endDate", new PropertyModel<Date>(formModel, END_DATE),

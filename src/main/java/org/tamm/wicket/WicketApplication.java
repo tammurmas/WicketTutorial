@@ -2,6 +2,7 @@ package org.tamm.wicket;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.resource.PackageResourceReference;
 
 /**
  * Application object for your web application.
@@ -27,7 +28,7 @@ public class WicketApplication extends WebApplication
 	public void init()
 	{
 		super.init();
-
+		//getJavaScriptLibrarySettings().setJQueryReference(new PackageResourceReference(WicketApplication.class,"empty.js"));
 		// add your configuration here
 	}
 }

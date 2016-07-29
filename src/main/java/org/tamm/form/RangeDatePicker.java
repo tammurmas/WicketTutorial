@@ -17,7 +17,7 @@ import org.joda.time.DateTime;
  *         Implementation of a DatePicker object with a predefined range of
  *         allowed dates
  */
-class RangeDatePicker extends DatePicker {
+public class RangeDatePicker extends DatePicker {
 	private static final long serialVersionUID = 1L;
 	private static final String FORMAT_DATE = "MM/dd/yyyy";
 	private final IModel<Date> maxDateModel;
