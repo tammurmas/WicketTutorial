@@ -10,11 +10,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.time.Duration;
 /**
-<<<<<<< HEAD
- * Throttle file edited locally plus one
-=======
  * Throttle file edited remotely
->>>>>>> branch 'master' of https://github.com/tammurmas/WicketTutorial.git
  */
 public class ThrottlePage extends WebPage {
 	private static final long serialVersionUID = 1L;
